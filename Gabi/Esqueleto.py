@@ -47,6 +47,19 @@ def minimenu():
     x=int(input("Insira a opção:"))
     os.system('cls')
     return x
+#Listar Passageiros
+def listarpassageiros():
+    print("Lista")
+    input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
+    os.system('cls')
+def vendapassagem():
+    print("Venda")
+    input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
+    os.system('cls')
+def cancelarvenda():
+    print("Cancelar Venda")
+    input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
+    os.system('cls')
 #Main
 dicvoo={}
 totalvoos=0
@@ -64,12 +77,24 @@ while True:
         case 2:
             consuta()
         case 3:
-            minimenu()
+            auxop=minimenu()
+            match auxop:
+                case 1:
+                    print("1")
+                case 2:
+                    print("2")
+                case 3:
+                    print("3")
+                case 4:
+                    print("4")
         case 4:
+            listarpassageiros()
             print("ok4")
         case 5:
+            vendapassagem()
             print("ok5")
         case 6:
+            cancelarvenda()
             print("ok6")
         case 7:
             print("ok7")
