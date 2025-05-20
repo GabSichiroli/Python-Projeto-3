@@ -23,23 +23,21 @@ def escolha():
 
 #Cadastro de Voos
 def cadastro_voos(voos,totalvoos):
-    voos={}
-    i=0
-    print("Cadastro")
-    quant=int(input("Inira a quantidade de voos que deseja cadastar dessas vez:"))
-    attvoos=totalvoos+quant
-    while i<quant:
-        codvoo=input("Insira a codigo do voo:")
-        codvoo=codvoo.upper()
-        if codvoo in voos.keys():
-            print(f"\n\t\t=> VOO JÁ EXISTENTE<==\n")
-    else:
-        print("pera")
-        i+=1
-    input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
-    os.system('cls')
-    return attvoos
-
+    print("Cadastro de Voos")
+    quant = int(input("Insira a quantidade de voos que deseja cadastrar desta vez: "))
+    i = 0
+    while i < quant:
+        codvoo = input("Insira o código do voo: ").upper()
+        if codvoo in voos:
+            print(f"\n\t\t=> VOO JÁ EXISTENTE <==\n")
+        else:
+            capMAX = int(input("Capacidade máxima: "))
+            cidadeorigem = input("Cidade de origem: ").upper()
+            cidadedestino = input("Cidade de destino: ").upper()
+            voos[codvoo] = [capMAX, cidadeorigem, cidadedestino]
+            i += 1
+    totalvoos += quant
+    return voos, totalvoos
 #Consuta de voo por chave
 def consuta():
     print("consuta")
@@ -81,7 +79,7 @@ while True:
         case 1:
             print("ok1")
             os.system('cls')
-            totalvoos=cadastro_voos(dicvoo,totalvoos)
+            dicvoo,totalvoos=cadastro_voos(dicvoo,totalvoos)
             print(f"{totalvoos}")
         case 2:
             consuta()
