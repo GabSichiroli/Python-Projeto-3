@@ -24,18 +24,10 @@ def escolha():
 #Cadastro de Voos
 def cadastro_voos(voos,totalvoos):
     voos={}
-    i=0
     print("Cadastro")
     quant=int(input("Inira a quantidade de voos que deseja cadastar dessas vez:"))
-    attvoos=totalvoos+quant
-    while i<quant:
-        codvoo=input("Insira a codigo do voo:")
-        codvoo=codvoo.upper()
-        if codvoo in voos.keys():
-            print(f"\n\t\t=> VOO JÁ EXISTENTE<==\n")
-    else:
-        print("pera")
-        i+=1
+    attvoos=totalvoos+quant #A quantidade de voos totais são a quantidade de chaves que temos no dicionario
+    
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
     os.system('cls')
     return attvoos
