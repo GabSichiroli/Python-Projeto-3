@@ -20,7 +20,6 @@ def escolha():
     x=int(input("Insira a opção:"))
     os.system('cls')
     return x
-
 #Cadastro de Voos
 def cadastro_voos(voos,totalvoos):
     print("Cadastro de Voos")
@@ -32,9 +31,11 @@ def cadastro_voos(voos,totalvoos):
             print(f"\n\t\t=> VOO JÁ EXISTENTE <==\n")
         else:
             capMAX = int(input("Capacidade máxima: "))
+            numerodepassageiros = int(input("Numero de acentos ja ocupados"))
             cidadeorigem = input("Cidade de origem: ").upper()
             cidadedestino = input("Cidade de destino: ").upper()
-            voos[codvoo] = [capMAX, cidadeorigem, cidadedestino]
+            quantescalas = int(input("Quantidade de escalas, se nenhuma digite 0:"))
+            voos[codvoo] = [capMAX, numerodepassageiros, cidadeorigem, cidadedestino, quantescalas]
             i += 1
     totalvoos += quant
     return voos, totalvoos
