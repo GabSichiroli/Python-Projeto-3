@@ -21,6 +21,7 @@ def escolha():
     os.system('cls')
     return x
 #Cadastro de Voos
+
 def cadastro_voos(voos,totalvoos):
     print("Cadastro de Voos")
     quant = int(input("Insira a quantidade de voos que deseja cadastrar desta vez: "))
@@ -30,18 +31,22 @@ def cadastro_voos(voos,totalvoos):
         if codvoo in voos:
             print(f"\n\t\t=> VOO JÁ EXISTENTE <==\n")
         else:
+            numerodepassageiros = 0
             capMAX = int(input("Capacidade máxima: "))
-            numerodepassageiros = int(input("Numero de acentos ja ocupados"))
             cidadeorigem = input("Cidade de origem: ").upper()
             cidadedestino = input("Cidade de destino: ").upper()
             quantescalas = int(input("Quantidade de escalas, se nenhuma digite 0:"))
-            voos[codvoo] = [capMAX, numerodepassageiros, cidadeorigem, cidadedestino, quantescalas]
+            preco=float(input('Insira o preço da passagem do voo: '))
+            voos[codvoo] = [capMAX, numerodepassageiros, cidadeorigem, cidadedestino, quantescalas,preco]
             i += 1
     totalvoos += quant
     return voos, totalvoos
+
 #Consuta de voo por chave
-def consuta():
-    print("consuta")
+def consuta(voos):
+    print("\nVoos cadastrados:")
+    for codigo, dados in voos.items():
+        print(f"{codigo}: {dados}")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
     os.system('cls')
 
@@ -55,15 +60,18 @@ def minimenu():
     x=int(input("Insira a opção:"))
     os.system('cls')
     return x
+
 #Listar Passageiros
 def listarpassageiros():
     print("Lista")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
     os.system('cls')
+
 def vendapassagem():
     print("Venda")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
     os.system('cls')
+
 def cancelarvenda():
     print("Cancelar Venda")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
@@ -83,7 +91,7 @@ while True:
             dicvoo,totalvoos=cadastro_voos(dicvoo,totalvoos)
             print(f"{totalvoos}")
         case 2:
-            consuta()
+            consuta(dicvoo)
         case 3:
             auxop=minimenu()
             match auxop:
