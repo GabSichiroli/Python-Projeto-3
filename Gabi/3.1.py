@@ -12,7 +12,7 @@ def telainicial ():
 def escolha():
     print("\t\t\n 1- Cadastar Voo")
     print("\t\t\n 2- Consutar Voo")
-    print("\t\t\n 3- Informações do Voo")
+    print("\t\t\n 3- Informações por quantidade de escalas")
     print("\t\t\n 4- Listar Passageiros do Voo")
     print("\t\t\n 5- Venda de passagem")
     print("\t\t\n 6- Cancelamento De Passagem")
@@ -27,7 +27,7 @@ def cadastro_voos(voos,totalvoos):
     quant = int(input("Insira a quantidade de voos que deseja cadastrar desta vez: "))
     i = 0
     while i < quant:
-        codvoo = input("Insira o código do voo: ").upper()
+        codvoo =int(input("Insira o código do voo: "))
         if codvoo in voos:
             print(f"\n\t\t=> VOO JÁ EXISTENTE <==\n")
         else:
@@ -37,7 +37,7 @@ def cadastro_voos(voos,totalvoos):
             cidadedestino = input("Cidade de destino: ").upper()
             quantescalas = int(input("Quantidade de escalas, se nenhuma digite 0:"))
             preco=float(input('Insira o preço da passagem do voo: '))
-            voos[codvoo] = [capMAX, numerodepassageiros, cidadeorigem, cidadedestino, quantescalas,preco]
+            voos[codvoo] = [cidadeorigem,cidadedestino,quantescalas, preco, capMAX, numerodepassageiros ]
             i += 1
     totalvoos += quant
     return voos, totalvoos
@@ -52,21 +52,37 @@ def consuta(voos):
 
 #Menu de buscas de informações de pesquisa de voo
 def minimenu():
-    print("\t\t\n\t Como deseja realizar a consuta:")
-    print("\t\t\n 1- Cidade de destino")
-    print("\t\t\n 2- Menor quantidade de escalas")
-    print("\t\t\n 3- Cidade de Origem")
-    print("\t\t\n 4- Cidade de Origem ate tal destino")
+    print('Como deseja consultar o voo? ')
+    print('[1]- Código do Voo')
+    print('[2]- Cidade de Origem')
+    print('[3]- Cidade de destino')
+    print('[4]- Sair')
     x=int(input("Insira a opção:"))
     os.system('cls')
     return x
+
+def codvoo_busca(voos):
+    codigo=int(input('Digite o código do voo: '))
+    if codigo in voos.keys():
+        print(f'Cidade origem: {voos[codigo][0]}')
+        print(f'Cidade destino: {voos[codigo][1]}')
+        print(f'Número de Escalas: {voos[codigo][2]}')
+        print(f'Preço da Passagem: {voos[codigo][3]}')
+        print(f"Capacidade maxima: {voos[codigo][4]}")
+        print(f"Numero de passageiros:{voos[codigo][5]}")
+    else:
+        print(f"\n\t{codigo} não consta no banco de dados")
+        
+def menorescala ():
+    print("Menor escala")
+    input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
+    os.system('cls')
 
 #Listar Passageiros
 def listarpassageiros():
     print("Lista")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
     os.system('cls')
-
 def vendapassagem():
     print("Venda")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
@@ -91,9 +107,18 @@ while True:
             dicvoo,totalvoos=cadastro_voos(dicvoo,totalvoos)
             print(f"{totalvoos}")
         case 2:
+            auxop=minimenu()
+            match auxop:
+                case 1:
+                    codvoo_busca(dicvoo)
+                case 2:
+                    print("2")
+                case 3:
+                    print("3")
+                case 4:
+                    print("4")
             consuta(dicvoo)
         case 3:
-            auxop=minimenu()
             match auxop:
                 case 1:
                     print("1")
