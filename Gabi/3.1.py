@@ -72,6 +72,16 @@ def codvoo_busca(voos):
         print(f"Numero de passageiros:{voos[codigo][5]}")
     else:
         print(f"\n\t{codigo} não consta no banco de dados")
+    input("\t\t\n\t PRESIONE ENTRER PARA CONTINUAR")    
+    os.system('cls')
+def buscaorigem(voos):
+    corigem=int(input('Digite o código do voo: '))
+    for k,v in voos.items():
+        if v[0] == corigem:
+            print(f'Código do voo: {k}')
+            print(f'Cidade Destino: {[v[1]]}')
+            print(f'Preços de Passagem para esse voo: {v[3]}')
+    
         
 def menorescala ():
     print("Menor escala")
@@ -107,27 +117,19 @@ while True:
             dicvoo,totalvoos=cadastro_voos(dicvoo,totalvoos)
             print(f"{totalvoos}")
         case 2:
-            auxop=minimenu()
-            match auxop:
-                case 1:
-                    codvoo_busca(dicvoo)
-                case 2:
-                    print("2")
-                case 3:
-                    print("3")
-                case 4:
-                    print("4")
-            consuta(dicvoo)
+            while True:
+                auxop=minimenu()
+                match auxop:
+                    case 1:
+                        codvoo_busca(dicvoo)
+                    case 2:
+                        buscaorigem(dicvoo)
+                    case 3:
+                        print("3")
+                    case 4:
+                        break
         case 3:
-            match auxop:
-                case 1:
-                    print("1")
-                case 2:
-                    print("2")
-                case 3:
-                    print("3")
-                case 4:
-                    print("4")
+            menorescala()
         case 4:
             listarpassageiros()
             print("ok4")
