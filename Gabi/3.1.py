@@ -75,14 +75,18 @@ def codvoo_busca(voos):
     input("\t\t\n\t PRESIONE ENTRER PARA CONTINUAR")    
     os.system('cls')
 def buscaorigem(voos):
-    corigem=int(input('Digite o código do voo: '))
-    for k,v in voos.items():
-        if v[0] == corigem:
-            print(f'Código do voo: {k}')
-            print(f'Cidade Destino: {[v[1]]}')
-            print(f'Preços de Passagem para esse voo: {v[3]}')
-    
-        
+    cidadedeorigem=str(input('Insira a cidade origem do voo: '))
+    while True:             
+        for k,v in voos.items():
+            if v[0] == cidadedeorigem:
+                print(f'Código do voo: {k}')
+                print(f'Cidade Destino: {[v[1]]}')
+                print(f'Numeros de Escalas: {[v[2]]}')
+                print(f'Preços de Passagem para esse voo: {v[3]}')
+                break
+            else:
+                print("N tem")
+          
 def menorescala ():
     print("Menor escala")
     input("\t\t\n\t PRESIONE ENTRER PARA ENTRAR")
