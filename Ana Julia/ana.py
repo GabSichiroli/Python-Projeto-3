@@ -97,7 +97,7 @@ def menorescala (voos):
         #verifica se o voo tem a mesma origem do destino
         if voos[cod][0] == origem and voos[cod][1] == destino:
             if primeiro:
-                #recebe o número de escalas desse voo
+                #vai recebe o número de escalas desse voo
                 menor_escalas = voos[cod][2]
                 cod_menor = cod
                 #é marcado como falso para comparar os próximos voos
