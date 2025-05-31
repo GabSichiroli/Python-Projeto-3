@@ -158,6 +158,7 @@ def listagem_passageiros(dict_voos, dict_passageiros):
                             print(f'\nPassageiros:')
                             for cpf in dict_voos[cod_voo][5]:
                                     if cpf in dict_passageiros:
+                                        
                                         print(f'| {dict_passageiros[cpf][0].title()}', end =' | ')
                             print(f'\nQuantidade de lugares disponíveis: {v[4]}')
                             
