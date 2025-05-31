@@ -3,7 +3,6 @@ def telainicial():
     print('='*40)
     print("Bem vindo ao Gerenciamento de dict_voos! ")
     print('='*40)
-
     input( "\nPRESIONE ENTER PARA ENTRAR>>>>")
     os.system('cls')
 
@@ -24,10 +23,10 @@ def escolha():
 def cadastro_voo(dict_voos,listavoos_disponiveis):
     quant=int(input('Insira a quantidade de voos que deseja cadastrar: '))
     for i in range(quant):
-        numerovoo=input('Informe o número do voo: ')
+        numerovoo=input('Informe o código do voo: ')
         while numerovoo in dict_voos:
             print(f'VOO JÁ EXISTENTE!')
-            numerovoo=input('Informe outro número de voo: ')
+            numerovoo=input('Informe outro código de voo: ')
 
         cidadeorigem=str(input(f'Insira a cidade origem do voo: ')).upper()
         while cidadeorigem.isdigit() or cidadeorigem.isspace() or cidadeorigem=="":
@@ -37,7 +36,7 @@ def cadastro_voo(dict_voos,listavoos_disponiveis):
         cidadedestino=str(input(f'Insira a cidade destino do voo: ')).upper()
         while cidadedestino.isdigit() or cidadedestino.isspace() or cidadedestino=="":
             print(f'Cidade Inválida')
-            cidadedestino=str(input(f'Insira novamente a cidade origem do voo: ')).upper()
+            cidadedestino=str(input(f'Insira novamente a cidade destino do voo: ')).upper()
 
         numescalas=int(input('Insira o número de escalas do voo: '))
         preco=float(input('Insira o preço da passagem do voo: '))
@@ -61,7 +60,7 @@ def menu_consulta():
 
 def consulta_numerovoo(dict_voos):
     codigo=input('Digite o código do voo: ')
-    if codigo not in dict_voos:
+    while codigo not in dict_voos:
             print(f'CÓDIGO NãO ENCONTRADO')
             codigo=(input(f'\nDigite outro código do voo: '))
     
@@ -75,33 +74,35 @@ def consulta_numerovoo(dict_voos):
 
 def consulta_origem(dict_voos):
     busca_origem=str(input('Insira a cidade origem do voo: ')).upper()
-    for procura_origem in dict_voos.values():
-        if procura_origem[0] != busca_origem.upper():
-            print(f'Não existem dict_voos cadastrados para a cidade {busca_origem}')
-            return
-
-    for k,v in dict_voos.items():
+    encontrou_origem=False
+    for k, v in dict_voos.items():
         if v[0] == busca_origem:
-            print('='*40)
-            print(f'Código do voo: {k}')
-            print(f'Cidade Destino: {v[1].title()}')
-            print(f'Preços de Passagem para esse voo: R${v[3]}') 
-            print('='*40)
-
+                    encontrou_origem= True
+                    print('='*40)
+                    print(f'Código do voo: {k}')
+                    print(f'Cidade Destino: {v[1].title()}')
+                    print(f'Preços de Passagem para esse voo: R${v[3]:.2f}') 
+                    print('='*40)
+    if not encontrou_origem:
+        print(f'Não existem voos cadastrados para a cidade {busca_origem}')
+        print('='*40)
+        
+    
 def consulta_destino(dict_voos):
     busca_destino=str(input('Insira a cidade destino do voo: ')).upper()
-    for v in dict_voos.values():
-        if v[1]!=busca_destino:
-            print(f'Não existem dict_voos cadastrados que partem da cidade {busca_destino}')
-            return
-            
+    encontrou_destino= False
     for k, v in dict_voos.items():
-        if v[1] == busca_destino:
+        if v[1]==busca_destino:
+            encontrou_destino = True
             print('='*40)
             print(f'Código do voo: {k}')
             print(f'Cidade Origem: {v[0].title()}')
-            print(f'Preços de Passagem para esse voo: R${v[3]}') 
+            print(f'Preços de Passagem para esse voo: R${v[3]:.2f}') 
             print('='*40)
+    if not encontrou_destino:
+        print(f'Não existem voos cadastrados com destino para a cidade {busca_destino}')
+        print('='*40)
+        
 
 def menor_escala(dict_voos):
         origem = input("Digite a cidade de origem: ").upper()
@@ -111,20 +112,20 @@ def menor_escala(dict_voos):
         for v in dict_voos.values():
                 if v[0]==origem:
                     origem_existe= True
-                    break
-                if not origem_existe:
-                    print(f'Não existem voos cadastrados que partem da cidade {origem}')
-                    return
-                if v[1] == destino:
-                    destino_existe = True
-                    break
-                if not destino_existe:
-                    print(f'\033[1;31mNão existem voos cadastrados de {origem} para {destino}\033[0m')
-                    return
+                    if v[1] == destino:
+                        destino_existe = True
+                        break
+
+        if not destino_existe:
+                print(f'Não existem voos cadastrados de {origem} para {destino}')
+                return
+        if not origem_existe:
+                print(f'Não existem voos cadastrados que partem da cidade {origem}')
+                return
         
         primeiro = True
         for  v in dict_voos.values():
-            if v[0].upper( )== origem and v[1].upper() == destino:
+            if v[0]== origem and v[1]== destino:
                 if primeiro:
                     menorescala_voo = v[2]
                     primeiro = False
@@ -133,12 +134,12 @@ def menor_escala(dict_voos):
                         menorescala_voo = v[2]
 
         for k, v in dict_voos.items():
-            if v[2]==menorescala_voo:
+            if v[2]==menorescala_voo and v[0]== origem and v[1]==destino:
                 print('='*40)
                 print(f"Voo com menor número de escalas da cidade {origem} para cidade {destino}:")
                 print(f"Código: {k}")
                 print(f"Escalas: {v[2]}")
-                print(f"Preço: R${v[3]}")
+                print(f"Preço: R${v[3]:.2f}")
                 print('='*40)
 
 def listagem_passageiros(dict_voos, dict_passageiros):
@@ -154,13 +155,13 @@ def listagem_passageiros(dict_voos, dict_passageiros):
                         if len(dict_voos[cod_voo][5]) == 0:
                             print(f'\nAinda não há passageiros cadastrados nesse voo!')
                         else:
-                            for nome in dict_passageiros.values():
-                                    print(f'\nPassageiros:')
-                                    print(f'| {nome[0].title()}', end =' | ')
-                                    print(f'\nQuantidade de lugares disponíveis: {v[4]}')
+                            print(f'\nPassageiros:')
+                            for cpf in dict_voos[cod_voo][5]:
+                                    if cpf in dict_passageiros:
+                                        print(f'| {dict_passageiros[cpf][0].title()}', end =' | ')
+                            print(f'\nQuantidade de lugares disponíveis: {v[4]}')
                             
 def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
-        
         print('='*40)
         print('Insira suas informações>>> ')
         cpf=int(input('Digite seu CPF (sem pontos ou traços): '))
@@ -184,7 +185,7 @@ def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
                     print(f'{k} - Cidade Origem: {v[0].title()}')
                     print(f'Cidade Destino: {v[1].title()}')
                     print(f'numero de escalas: {v[2]}')
-                    print(f'Preço da passagem: {v[3]}')
+                    print(f'Preço da passagem: {v[3]:.2f}')
                     print(f'Quantidade de lugares disponíveis: {v[4]}')
                     print('='*40)
         
@@ -195,8 +196,7 @@ def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
 
         num_passagens=int(input('Digite o numero de passagens que deseja comprar: '))
 
-        if cpf not in dict_passageiros:      
-            total_passagens=0       
+        if cpf not in dict_passageiros:             
             total_passagens=num_passagens
         else:
             total_passagens= dict_passageiros[cpf][2]+num_passagens
@@ -206,15 +206,16 @@ def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
             dict_passageiros[cpf] = [nome, telefone, total_passagens]
 
             if cpf not in dict_voos[voo_escolhido][5]:
-                dict_voos[voo_escolhido][5].append(cpf)
+                 dict_voos[voo_escolhido][5].append(cpf)
 
             print(f'COMPRA REALIZADA!')
         else:
-            print(f'QUANTIDADE DE PASSAGENS ACIMA DO LIMITE!!!')
+            print(f'TENTATIVA DE COMPRAS DE PASSAGENS ACIMA DO LIMITE!!!')
         
         if dict_voos[voo_escolhido][4]==0:
-            lista_voosdisponiveis.remove(voo_escolhido)
-
+            if voo_escolhido in lista_voosdisponiveis:
+                lista_voosdisponiveis.remove(voo_escolhido)
+        print(lista_voosdisponiveis)
         print(dict_passageiros)#teste
         print(dict_voos)
 
@@ -229,16 +230,21 @@ def cancelamento_passagem(dict_voos, dict_passageiros):
         if CPF_cliente not in dict_passageiros:
             print('CPF NÃO ENCONTRADO')
             return
+        confirmacao=input(f'Deseja realmente cancelar sua passagem? [S/N]: ').upper()
+        if confirmacao != 'S':
+             print('Cancelamento anulado!')
+             return
         else:
             if CPF_cliente in dict_voos[codig_voo][5]:
                 dict_voos[codig_voo][4] +=1
-                
-                if dict_passageiros [CPF_cliente][2]==1:
-                    dict_voos[codig_voo][5].remove(CPF_cliente)
-                    del dict_passageiros[CPF_cliente]
-                else:
+
+                if dict_passageiros[CPF_cliente][2]!=1:
+
                     dict_passageiros[CPF_cliente][2]-=1
-                
+                else:
+                    dict_voos[codig_voo][5].remove(CPF_cliente)
+                    del dict_passageiros [CPF_cliente]
+
         print(dict_voos)
         print(dict_passageiros)
         print(f'Passagem cancelada com sucesso!')
@@ -251,10 +257,9 @@ voos_disponiveis=[]
 telainicial()
 while True:
     opcao=escolha()
-
     match opcao:
         case 1:
-            cadastro=cadastro_voo(voos, voos_disponiveis)
+           voos, voos_disponiveis= cadastro_voo(voos, voos_disponiveis)
         case 2:
             while True:
                 escolha_consulta=menu_consulta()
