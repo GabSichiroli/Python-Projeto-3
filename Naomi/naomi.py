@@ -226,10 +226,12 @@ def cancelamento_passagem(dict_voos, dict_passageiros):
         if codig_voo not in dict_voos:
             print('CÓDIGO DO VOO INVÁLIDO')
             return
-        
         CPF_cliente=int(input('Digite seu cpf: '))
         if CPF_cliente not in dict_passageiros:
-            print('CPF NÃO ENCONTRADO')
+             print('CPF NÃO CADASTRADO NO SISTEMA')
+             return
+        if CPF_cliente not in dict_voos[codig_voo][5]:
+            print('CPF NÃO ENCONTRADO NESSE VOO')
             return
         confirmacao=input(f'Deseja realmente cancelar sua passagem? [S/N]: ').upper()
         if confirmacao != 'S':
@@ -238,9 +240,7 @@ def cancelamento_passagem(dict_voos, dict_passageiros):
         else:
             if CPF_cliente in dict_voos[codig_voo][5]:
                 dict_voos[codig_voo][4] +=1
-
                 if dict_passageiros[CPF_cliente][2]!=1:
-
                     dict_passageiros[CPF_cliente][2]-=1
                 else:
                     dict_voos[codig_voo][5].remove(CPF_cliente)
