@@ -242,7 +242,7 @@ def cancelamento_passagem(dict_voos, dict_passageiros,voos_disponiveis):
             print('CPF NÃO ENCONTRADO')
             CPF_cliente=int(input('Digite seu cpf: '))
         while CPF_cliente not in dict_voos[codig_voo][5]:   
-            print('ESSE CPF NÃO ENCONTRADO NESSE VOO')
+            print('CPF NÃO ENCONTRADO NESSE VOO')
             print('='*40)
             input( "\nPRESIONE ENTER PARA CONTINUAR>>>>")
             os.system('cls')
