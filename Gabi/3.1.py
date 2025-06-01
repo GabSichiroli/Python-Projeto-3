@@ -231,7 +231,7 @@ def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
         if dict_voos[voo_escolhido][4]==0:
             if voo_escolhido in lista_voosdisponiveis:
                 lista_voosdisponiveis.remove(voo_escolhido)
-def cancelamento_passagem(dict_voos, dict_passageiros):
+def cancelamento_passagem(dict_voos, dict_passageiros,voos_disponiveis):
         print('='*40)
         codig_voo=input('Digite o código do voo: ')
         while codig_voo not in dict_voos:
@@ -247,18 +247,20 @@ def cancelamento_passagem(dict_voos, dict_passageiros):
             input( "\nPRESIONE ENTER PARA CONTINUAR>>>>")
             os.system('cls')
             return
+        
         confirmacao=input(f'Deseja realmente cancelar sua passagem? [S/N]: ').upper()
         if confirmacao != 'S':
-             print('Cancelamento anulado!')
-             input( "\nPRESIONE ENTER PARA CONTINUAR>>>>")
-             os.system('cls')
-             return
+            print('Cancelamento anulado!')
+            input( "\nPRESIONE ENTER PARA CONTINUAR>>>>")
+            os.system('cls')
+            return
         else:
+            if dict_voos[codig_voo][4]==0:
+                 voos_disponiveis.append(codig_voo)
             if CPF_cliente in dict_voos[codig_voo][5]:
                 dict_voos[codig_voo][4] +=1
-
+                
                 if dict_passageiros[CPF_cliente][2]!=1:
-
                     dict_passageiros[CPF_cliente][2]-=1
                 else:
                     dict_voos[codig_voo][5].remove(CPF_cliente)
@@ -303,7 +305,7 @@ while True:
         case 5:
             venda_passagem(voos, passageiros, voos_disponiveis)                        
         case 6:
-            cancelamento_passagem(voos,passageiros)
+            cancelamento_passagem(voos,passageiros,voos_disponiveis)
         case 7:
             os.system('cls')
             print('='*40)
