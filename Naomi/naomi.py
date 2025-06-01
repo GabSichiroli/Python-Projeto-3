@@ -250,6 +250,7 @@ def cancelamento_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
 
         print(dict_voos)
         print(dict_passageiros)
+        print(lista_voosdisponiveis)
         print(f'Passagem cancelada com sucesso!')
         print('='*40)
 
