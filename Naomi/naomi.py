@@ -220,7 +220,7 @@ def venda_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
         print(dict_passageiros)#teste
         print(dict_voos)
 
-def cancelamento_passagem(dict_voos, dict_passageiros):
+def cancelamento_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
         print('='*40)
         codig_voo=input('Digite o código do voo: ')
         if codig_voo not in dict_voos:
@@ -245,6 +245,8 @@ def cancelamento_passagem(dict_voos, dict_passageiros):
                 else:
                     dict_voos[codig_voo][5].remove(CPF_cliente)
                     del dict_passageiros [CPF_cliente]
+            if dict_voos[codig_voo][4]>0:
+                lista_voosdisponiveis.append(codig_voo)
 
         print(dict_voos)
         print(dict_passageiros)
@@ -290,7 +292,7 @@ while True:
             venda_passagem(voos, passageiros, voos_disponiveis)                        
         case 6:
             
-            cancelamento_passagem(voos,passageiros)
+            cancelamento_passagem(voos,passageiros,voos_disponiveis)
 
         case 7:
             print('='*40)
