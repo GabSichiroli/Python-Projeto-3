@@ -245,7 +245,7 @@ def cancelamento_passagem(dict_voos, dict_passageiros,lista_voosdisponiveis):
                 else:
                     dict_voos[codig_voo][5].remove(CPF_cliente)
                     del dict_passageiros [CPF_cliente]
-            if dict_voos[codig_voo][4]>0:
+            if dict_voos[codig_voo][4]==1:
                 lista_voosdisponiveis.append(codig_voo)
 
         print(dict_voos)
